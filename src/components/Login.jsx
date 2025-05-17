@@ -10,8 +10,8 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("bhushan@gmail.com");
+  const [password, setPassword] = useState("Bhushan@123");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,8 +55,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-950 px-4">
-      <div className="w-full max-w-md bg-slate-900 text-white rounded-xl shadow-lg p-8">
+    <div className="flex justify-center items-center  min-h-screen bg-gray-950 px-4">
+      <div className="w-full max-w-md bg-slate-900 text-white m-2 rounded-xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center mb-6">
           {isLogin ? "Login" : "Sign Up"}
         </h2>

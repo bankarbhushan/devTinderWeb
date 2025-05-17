@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,31 +7,48 @@ import UserChard from "./UserChard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-  // console.log("feed", feed);
+  const [showToast, setShowToast] = useState(false);
 
   const dispatch = useDispatch();
+
   const getFeed = async () => {
     try {
-      // if already feed daata exist return from here dont make an apicall
       if (feed) return;
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
       });
-      // setup the feed data into the redux store
       dispatch(addFeed(res?.data?.data));
-      // console.log("feed", res?.data?.data);
     } catch (err) {
       console.log("err.message", err.message);
     }
   };
+
   useEffect(() => {
     getFeed();
+
+    const interval = setInterval(() => {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3 * 1000);
+    }, 10 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  if (!feed) return;
+  if (!feed) return null;
 
   return (
-    <div className="flex justify-center items-center mt-10 px-4 min-h-[50vh]">
+    <div className="relative flex justify-center items-center mt-10 px-4 min-h-[50vh]">
+      {/* Toast Container */}
+      {showToast && (
+        <div className="toast toast-end absolute top-4 right-4 z-50">
+          <div className="alert alert-success">
+            <span>Every day meet with New Coders</span>
+          </div>
+        </div>
+      )}
+
       {feed && feed.length > 0 ? (
         <UserChard user={feed[0]} />
       ) : (
