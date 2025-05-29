@@ -31,7 +31,7 @@ const EditProfile = ({ user }) => {
       setTimeout(() => {
         setSuccess("");
       }, 3000);
-      console.log("res.data", res.data);
+      // console.log("res.data", res.data);
 
       // i will update the store with this information
       dispatch(addUser(res?.data?.data));
